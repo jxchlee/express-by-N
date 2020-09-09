@@ -14,6 +14,19 @@ void insert(int N);
 
 bool calculate(int j, int number);
 
+int pluss(int m, int n);
+
+int minuss(int m, int n);
+
+int multiplee(int m, int n);
+
+int dividee(int m, int n);
+
+
+
+void isThisNew(int tem, int T);
+
+
 int solution(int N, int number) {
   int answer = -1;
   insert(N); //벡터에 각 n의 최대값 넣음
@@ -89,97 +102,76 @@ void insert(int N){ //1,11,111 등의 값을 각 배열 첫번째에 넣음
 
 bool calculate(int T, int number){
 
-  
-  if(number == plus(n[K][i], n[T-K][j])){
-    return 1;
-  }
-
-  else{
-
-  }
-  if(number == minus(n[K][i], n[T-K][j])){
-    return 1;
-  }
-  else{
-
-  }
-  if(number == multiple(n[K][i], n[T-K][j])){
-    return 1;
-  }
-  else{
-
-  }
-  if(number == divide(n[K][i], n[T-K][j])){
-    return 1;
-  }
-  else{
-    
-  }
-  
-  
-}
-
-
-
-operation(int T){
-  
   for(int k=0; k<T; k++){
     int K = T-k;
-    for(int i=0; i < n[K].capacity; i++){
-      for(int j=0; j<n[T-K].capacity;j++){
-        int tem = plus(n[K][i], n[T-K][j]);
-        if(number == tem){
+    for(int i=0; i < n[K].size(); i++){
+      for(int j=0; j<n[T-K].size();j++){
+        int tem = pluss(n[K][i], n[T-K][j]);
+        if(tem == -1) goto notnew;
+        else if(number == tem){
           return 1;
         }
-        isThisNew(tem);
+        isThisNew(tem, T);
 
-        tem = minus(n[K][i], n[T-K][j]);
+        notnew:
+        tem = minuss(n[K][i], n[T-K][j]);
         if(number == tem){
           return 1;
         }
-        isThisNew(tem);
+        isThisNew(tem, T);
 
-        tem = multiple(n[K][i], n[T-K][j]);
+        tem = multiplee(n[K][i], n[T-K][j]);
         if(number == tem){
           return 1;
         }
-        isThisNew(tem);
+        isThisNew(tem, T);
 
-        tem = divide(n[K][i], n[T-K][j]);
+        tem = dividee(n[K][i], n[T-K][j]);
         if(number == tem){
           return 1;
         }
-        isThisNew(tem);
+        isThisNew(tem, T);
 
 
       }
     }
   }
-  
+  return 0;
 }
 
 
 
 
-int plus(int m, int n){
-  
-  
+int pluss(int m, int n){
+  return m+n;
+}
+
+int minuss(int m, int n){
+  if(m-n <= 0) return -1;
+  else return m-n;
+}
+
+int multiplee(int m, int n){
+  return m * n;
+}
+
+int divdee(int m, int n){
+  if(m % n == 0) return m/n;
+  else return -1;
 }
 
 
-void isThisNew(int tem){
+void isThisNew(int tem, int T){
 
-
-
-    for(int i=0; i<T; i++){
-      for(int j=0; j<n[i].capacity();j++){
-        if(tem == n[i][j]){
-          goto notnew;
-        }
+  for(int i=0; i<T; i++){
+    for(int j=0; j<n[i].capacity();j++){
+      if(tem == n[i][j]){
+        break;
       }
     }
-    n[T].push_back(tem);
   }
+  n[T].push_back(tem);
 }
+
 
 
